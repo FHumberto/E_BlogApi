@@ -13,9 +13,14 @@ public static class DependencyInjection
 {
     public static void RegisterDALDependencies(this IServiceCollection services, IConfiguration Configuration)
     {
+        var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+        var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+        var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
+        var connectionString = $"Data Source={dbHost};Initial Catalog={dbName};User ID=sa;Password={dbPassword}";
+
         services.AddDbContext<AppDbContext>(options =>
         {
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            options.UseSqlServer(connectionString);
         });
 
         services.AddIdentity<User, IdentityRole>()

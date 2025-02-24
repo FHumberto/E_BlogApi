@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage;
 using System.Reflection;
 using T_Tier.DAL.Contracts;
 using T_Tier.DAL.Entities;
@@ -9,8 +11,25 @@ using T_Tier.DAL.Seed;
 
 namespace T_Tier.DAL.Context;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext<User>(options)
+public class AppDbContext : IdentityDbContext<User>
 {
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    {
+        try
+        {
+            var databaseCreator = Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
+            if (databaseCreator != null)
+            {
+                if (!databaseCreator.CanConnect()) databaseCreator.Create();
+                if (!databaseCreator.HasTables()) databaseCreator.CreateTables();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
     #region ================================[ENTIDADES]================================
 
     public DbSet<Post> Posts { get; set; }

@@ -1,0 +1,33 @@
+networks:
+  eblogapp:
+
+services:
+  t-tier.db:
+    container_name: eblog.db
+    image: mcr.microsoft.com/mssql/server:latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password123
+    ports:
+      - "8002:1433"
+    restart: always
+    networks:
+      - eblogapp
+
+  t-tier.api:
+    container_name: eblog.api
+    image: ${DOCKER_REGISTRY-}ttierapi
+    build:
+      context: .
+      dockerfile: src/T-Tier.API/Dockerfile
+    restart: always
+    ports:
+    - 8001:80
+    depends_on:
+      - t-tier.db
+    environment:
+      - DB_HOST=t-tier.db
+      - DB_NAME=eblog.db
+      - DB_SA_PASSWORD=Password123
+    networks:
+      - eblogapp

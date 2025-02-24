@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Options;
-using Serilog;
 using T_Tier.API.Extensions;
 using T_Tier.API.Middlewares;
 using T_Tier.BLL;
@@ -18,13 +17,13 @@ builder.Services.AddProblemDetails();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Host.UseSerilog((context, services, configuration) =>
-{
-    configuration
-        .ReadFrom.Configuration(context.Configuration)
-        .ReadFrom.Services(services)
-        .Enrich.FromLogContext();
-});
+//builder.Host.UseSerilog((context, services, configuration) =>
+//{
+//    configuration
+//        .ReadFrom.Configuration(context.Configuration)
+//        .ReadFrom.Services(services)
+//        .Enrich.FromLogContext();
+//});
 
 builder.Services.AddSwaggerRoutes();
 builder.Services.AddSwaggerAuthServices();
@@ -32,7 +31,7 @@ builder.Services.AddAuthenticationServices(builder.Configuration);
 
 var app = builder.Build();
 
-app.UseSerilogRequestLogging();
+//app.UseSerilogRequestLogging();
 app.UseCorsPolicies();
 
 if (app.Environment.IsDevelopment())
