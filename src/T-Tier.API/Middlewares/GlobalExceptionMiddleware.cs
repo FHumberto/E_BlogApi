@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using System.Text.Json;
 
+namespace T_Tier.API.Middlewares;
+
 public class GlobalExceptionMiddleware(ILogger<GlobalExceptionMiddleware> logger) : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)

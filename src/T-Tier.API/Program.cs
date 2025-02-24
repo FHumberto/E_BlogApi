@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Options;
 using Serilog;
 using T_Tier.API.Extensions;
+using T_Tier.API.Middlewares;
 using T_Tier.BLL;
 using T_Tier.BLL.Settings;
 using T_Tier.DAL;

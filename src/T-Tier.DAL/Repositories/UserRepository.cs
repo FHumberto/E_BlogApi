@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using T_Tier.DAL.Context;
+using T_Tier.DAL.Contracts;
 using T_Tier.DAL.Entities;
 
 namespace T_Tier.DAL.Repositories;
@@ -65,12 +66,10 @@ public class UserRepository(AppDbContext context, ILogger<UserRepository> logger
 
             #region 3. REMOVER O USUÁRIO
 
-            int deletedUsers = await context.Database.ExecuteSqlRawAsync(
+            await context.Database.ExecuteSqlRawAsync(
                 "DELETE FROM [Identity].[AspNetUsers] WHERE Id = {0}", userId);
 
             logger.LogInformation("Usuário {UserId} removido com sucesso.", userId);
-
-            await context.SaveChangesAsync();
 
             #endregion
 

@@ -7,7 +7,7 @@ public class Post : BaseEntity, ISoftDeleteEntity
     public string? UserId { get; set; }
     public required string Title { get; init; }
     public required string Body { get; init; }
-    public bool IsDeleted { get; private set; } = false;
+    public bool IsDeleted { get; private set; }
 
     //? prop navegação para o usuário que criou o post
     public User? User { get; init; }

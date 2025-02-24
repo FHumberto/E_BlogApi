@@ -15,7 +15,7 @@ public class PostsController : BaseApiController
     [SwaggerOperation(Summary = "Rota de Teste de Versionamento")]
     public async Task<IActionResult> VersioningTest()
     {
-        var response = new Response<string>("Rota de Teste de Versionamento", ResponseTypeEnum.Success);
+        var response = new Response<string>("Rota de Teste de Versionamento");
 
         return response.Type switch
         {

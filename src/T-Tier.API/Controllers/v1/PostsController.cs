@@ -18,7 +18,7 @@ public class PostsController(IPostService postService) : BaseApiController
         Description = "Retorna uma lista com todas as postagens cadastradas.")]
     public async Task<IActionResult> GetAllPosts()
     {
-        Response<IReadOnlyList<QueryPostResponseDto>>? response = await postService.GetAllPost();
+        var response = await postService.GetAllPost();
 
         return response.Type switch
         {

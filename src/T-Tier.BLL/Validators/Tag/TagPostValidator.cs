@@ -1,5 +1,8 @@
 ﻿using FluentValidation;
+using T_Tier.BLL.DTOs.Tags;
 using T_Tier.DAL.Contracts;
+
+namespace T_Tier.BLL.Validators.Tag;
 
 public class TagPostValidator : AbstractValidator<CommandTagPostRequest>
 {
@@ -16,7 +19,7 @@ public class TagPostValidator : AbstractValidator<CommandTagPostRequest>
 
     private async Task<bool> AllTagsExist(List<int> tagIds, CancellationToken cancellationToken)
     {
-        if (tagIds == null || tagIds.Count == 0)
+        if (tagIds.Count == 0)
         {
             return false;
         }

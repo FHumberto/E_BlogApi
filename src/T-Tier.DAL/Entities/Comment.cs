@@ -8,7 +8,7 @@ public class Comment : BaseEntity, ISoftDeleteEntity
     public string? UserId { get; set; }
     public int PostId { get; init; }
     public required string Body { get; init; }
-    public bool IsDeleted { get; private set; } = false;
+    public bool IsDeleted { get; private set; }
 
     //? prop de navegação para o usuário que fez o comentário
     public User? User { get; init; }

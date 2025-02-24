@@ -9,11 +9,13 @@ namespace T_Tier.DAL.Repositories;
 public class CommentRepository(AppDbContext context, ILogger<CommentRepository> logger)
     : GenericRepository<Comment>(context, logger), ICommentRepository
 {
+    private readonly AppDbContext _context = context;
+
     public async Task<IReadOnlyList<Comment?>> GetCommentsWithUser(string userId)
     {
         try
         {
-            var comments = await context.Comments
+            var comments = await _context.Comments
                 .Where(c => c.UserId == userId)
                 .Include(c => c.User)
                 .AsNoTracking()
