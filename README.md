@@ -8,7 +8,6 @@
   <a href="#sobre">Sobre</a> •
   <a href="#tecnologias">Tecnologias</a> •
   <a href="#fundamentos">Fundamentos</a> •
-  <a href="#como-rodar">Como rodar?</a> •
   <a href="#licença">Licença</a>
 </p>
 
@@ -34,7 +33,6 @@ Este projeto utiliza as seguintes ferramentas e tecnologias:
 * `AutoMapper` – Mapeamento automático entre modelos e DTOs
 * `Swagger (Swashbuckle)` – Documentação interativa da API
 * `Serilog` – Logging estruturado e armazenamento de logs
-* `Docker` – Contêinerização para facilitar implantação e escalabilidade
 
 ### **Fundamentos**
 
@@ -54,27 +52,6 @@ O banco de dados foi projetado para suportar um sistema de blog, incluindo as se
 * Post – Publicação de artigos no blog
 * Comentário – Sistema de feedback nos posts
 * Tag – Organização do conteúdo por categorias
-
-### **Como Rodar?**
-
-
-#### **1. Preparação**
-
-Para clonar este repositório, você precisará ter o [Git](https://git-scm.com) e o .NET respectivo instalado em sua máquina sua máquina.
-
-#### **2. Rodando**
-
-> A aplicação pode ser executada na interface do Visual Studio ou usando o modo debug no VSCode.
-
-Para compilar e executar a aplicação pelo terminal, utilize os seguintes comandos:
-
-```shell
-dotnet build
-```
-
-```shell
-dotnet run --project <CAMINHO_DO_PROJETO>
-```
 
 ## **Licença**
 
