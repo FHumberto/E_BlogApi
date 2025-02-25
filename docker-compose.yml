@@ -1,17 +1,19 @@
 services:
   t-tier.api:
-    image: ${DOCKER_REGISTRY-}ttierapi
+    image: ${DOCKER_REGISTRY:-ttierapi}
     build:
       context: .
       dockerfile: src/T-Tier.API/Dockerfile
     ports:
-    - 8001:8081
+      - "8000:8080"
+      - "8001:8081"
     depends_on:
-    - t-tier.db
+      - t-tier.db
+
   t-tier.db:
     image: mcr.microsoft.com/mssql/server:latest
     environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=P@ssword1
+      SA_PASSWORD: "P@ssword1"
+      ACCEPT_EULA: "Y"
     ports:
-    - 8002:1433
+      - "8002:1433"

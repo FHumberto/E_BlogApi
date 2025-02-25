@@ -19,22 +19,12 @@ builder.Services.AddCorsPolicies();
 builder.Services.AddProblemDetails();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-
-builder.Host.UseSerilog((context, services, configuration) =>
-{
-    configuration
-        .ReadFrom.Configuration(context.Configuration)
-        .ReadFrom.Services(services)
-        .Enrich.FromLogContext();
-});
-
 builder.Services.AddSwaggerRoutes();
 builder.Services.AddSwaggerAuthServices();
 builder.Services.AddAuthenticationServices(builder.Configuration);
 
 var app = builder.Build();
 
-app.UseSerilogRequestLogging();
 app.UseCorsPolicies();
 
 using (var scope = app.Services.CreateScope())
@@ -44,6 +34,13 @@ using (var scope = app.Services.CreateScope())
     //? não é uma boa prática, mas usado aqui para um ambiente de teste.
     context.Database.Migrate();
 }
+
+//? chama o logger depois do banco criado
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .ReadFrom.Services(app.Services)
+    .Enrich.FromLogContext()
+    .CreateLogger();
 
 if (app.Environment.IsDevelopment())
 {

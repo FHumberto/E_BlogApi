@@ -71,19 +71,16 @@ A aplicação pode ser executada pela interface do Visual Studio ou no modo debu
 #### **Rodando com Docker Compose**  
 
 - Para subir os containers:  
-  ```sh
-  docker-compose up -d
-  ```
 
-- Para recriar os containers:  
-  ```sh
-  docker-compose up --build -d
-  ```
+```sh
+docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+```
 
 - Para parar os containers:  
-  ```sh
-  docker-compose down
-  ```
+
+```sh
+docker-compose down
+```
 
 ### **Credenciais de Teste**  
 
