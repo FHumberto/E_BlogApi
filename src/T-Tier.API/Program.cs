@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Serilog;
 using T_Tier.API.Extensions;
@@ -5,6 +6,7 @@ using T_Tier.API.Middlewares;
 using T_Tier.BLL;
 using T_Tier.BLL.Settings;
 using T_Tier.DAL;
+using T_Tier.DAL.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +36,14 @@ var app = builder.Build();
 
 app.UseSerilogRequestLogging();
 app.UseCorsPolicies();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<AppDbContext>();
+    //? não é uma boa prática, mas usado aqui para um ambiente de teste.
+    context.Database.Migrate();
+}
 
 if (app.Environment.IsDevelopment())
 {
